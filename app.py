@@ -3,9 +3,10 @@
 
 from flask import Flask, render_template, redirect, url_for ,request
 from gevent.pywsgi import WSGIServer 
+import os
 
 app = Flask(__name__) 
-app.debug = True
+app.debug = os.getenv("FLASK_DEBUG", "False").lower() == "true"
 
 @app.route('/')
 def hello():
