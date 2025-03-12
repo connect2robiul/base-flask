@@ -1,6 +1,8 @@
 name: llm
+channels:
+  - defaults
 dependencies:
-  - python=3.11  # Use a stable version
+  - python=3.11   # Use a stable Python version
   - numpy
   - pandas
   - flask
