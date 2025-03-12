@@ -1,6 +1,6 @@
 name: llm
 dependencies:
-  - python=3.12  # Change this to the latest stable Python version
+  - python=3.11  # Use a stable version
   - numpy
   - pandas
   - flask
