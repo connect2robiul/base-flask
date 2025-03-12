@@ -1,9 +1,10 @@
-name: LLM
+name: llm
 dependencies:
   - python=3.13.2
   - numpy
   - pandas
   - flask
   - pip
+  - gunicorn
   - pip:
       - -r requirements.txt

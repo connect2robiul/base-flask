@@ -27,4 +27,4 @@ EXPOSE 1212
 #CMD [ "gunicorn", "app:app" ]
 
 # Set the default command
-CMD ["bash"]
+CMD ["gunicorn"  , "-b", "0.0.0.0:1212", "app:app"]
