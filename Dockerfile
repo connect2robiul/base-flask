@@ -11,20 +11,20 @@ COPY requirements.txt .
 # Create the conda environment
 RUN conda env create -f environment.yml
 
-# Activate the environment and set it as default
-RUN echo "conda activate " >> ~/.bashrc
-SHELL ["/bin/bash", "--login", "-c"]
+# Activate the environment properly
+SHELL ["conda", "run", "-n", "llm", "/bin/bash", "-c"]
 
-ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0 --chdir=./src/"
+# Set Conda environment path
+ENV PATH="/opt/conda/envs/llm/bin:$PATH"
 
 # Copy application files last (to optimize caching)
 COPY . .
 
-# Install any additional dependencies via pip
-RUN pip install --no-cache-dir -r requirements.txt
+# Install additional dependencies via pip inside Conda environment
+RUN conda run -n llm pip install --no-cache-dir -r requirements.txt
 
+# Expose the port Flask/Gunicorn will run on
 EXPOSE 1212
-#CMD [ "gunicorn", "app:app" ]
 
-# Set the default command
-CMD ["gunicorn"  , "-b", "0.0.0.0:1212", "app:app"]
+# Set the default command (correcting the Gunicorn app reference)
+CMD ["conda", "run", "-n", "llm", "gunicorn", "-b", "0.0.0.0:1212", "src.app:app"]
