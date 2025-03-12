@@ -10,6 +10,7 @@ COPY requirements.txt .
 
 # Install dependencies (use `&&` to avoid layer issues)
 RUN conda clean --all -y
+RUN conda update -n base -c defaults conda -y
 RUN conda env create -f environment.yml 
 
 # Activate the Conda environment properly
