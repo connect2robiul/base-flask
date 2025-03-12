@@ -23,8 +23,11 @@ COPY . .
 # Install additional dependencies via pip inside Conda environment
 RUN conda run -n llm pip install --no-cache-dir -r requirements.txt
 
+# Verify that dependencies are installed
+RUN conda run -n llm python -c "import flask, gunicorn"
+
 # Expose the port Flask/Gunicorn will run on
 EXPOSE 1212
 
-# Set the default command (correcting the Gunicorn app reference)
-CMD ["conda", "run", "-n", "llm", "gunicorn", "-b", "0.0.0.0:1212", "src.app:app"]
+# Use bash -c to ensure environment activation
+CMD ["bash", "-c", "conda run -n llm gunicorn -b 0.0.0.0:1212 src.app:app"]
