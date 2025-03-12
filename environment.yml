@@ -1,10 +1,10 @@
 name: llm
 dependencies:
-  - python=3.13.2
+  - python=3.12  # Change this to the latest stable Python version
   - numpy
   - pandas
   - flask
-  - pip
   - gunicorn
+  - pip
   - pip:
       - -r requirements.txt
