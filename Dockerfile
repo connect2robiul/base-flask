@@ -9,7 +9,8 @@ COPY environment.yml .
 COPY requirements.txt .
 
 # Install dependencies (use `&&` to avoid layer issues)
-RUN conda env create -f environment.yml && conda clean --all -y
+RUN conda clean --all -y
+RUN conda env create -f environment.yml 
 
 # Activate the Conda environment properly
 SHELL ["conda", "run", "-n", "llm", "/bin/bash", "-c"]
